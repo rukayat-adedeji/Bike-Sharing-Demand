@@ -1,40 +1,64 @@
-# Predict Bike Sharing Demand with AutoGluon
+# Bike Sharing Demand Prediction using AutoGluon
 
-## Introduction to AWS Machine Learning Final Project
+This repository contains my project on predicting bike-sharing demand using the AutoGluon library, as part of the Kaggle Bike Sharing Demand competition.
 
-## Overview
-This project focuses on predicting bike-sharing demand using the AutoGluon library for the Bike Sharing Demand competition on Kaggle. By utilizing tabular prediction techniques, we aim to fit data from CSV files provided by the competition. The project demonstrates proficiency in using AutoGluon to train multiple models and optimizing solutions for the given problem.
+## Project Overview
 
-Bike-sharing demand prediction is crucial for companies like Uber, Lyft, and DoorDash, as it helps them prepare for spikes in their services and improve customer experience by minimizing delays.
+The goal of this project was to predict bike-sharing demand using historical data. Accurate predictions of bike-sharing demand are crucial for companies like Uber, Lyft, and DoorDash to prepare for spikes in services and improve customer experience by reducing delays.
 
-In the end, the project involves submitting multiple entries to the competition and achieving a rank within Kaggle. Additionally, a detailed report of findings will be compiled, which can be shared publicly on Kaggle or personal platforms to showcase the work done.
+This project demonstrates the use of AutoGluon for training multiple iterations of models and optimizing them for better predictions. The process included initial model training, exploratory data analysis (EDA), feature engineering, hyperparameter tuning, and model evaluation.
 
+## Dataset
 
+The dataset was provided by the Kaggle competition and contains the following features:
 
-## Getting Started
-* Clone this template repository `git clone git@github.com:udacity/nd009t-c1-intro-to-ml-project-starter.git` into AWS Sagemaker Studio (or local development).
+- **datetime**: Date and time of the observation
+- **season**: Season of the year
+- **weather**: Weather situation
+- **temp**: Temperature in Celsius
+- **atemp**: "Feels-like" temperature in Celsius
+- **humidity**: Humidity level
+- **windspeed**: Wind speed
+- **casual**: Number of casual users
+- **registered**: Number of registered users
+- **count**: Total number of bike rentals (target variable)
 
-<img src="sagemaker-studio-git1.png" alt="sagemaker-studio-git1.png" width="500"/>
-<img src="sagemaker-studio-git2.png" alt="sagemaker-studio-git2.png" width="500"/>
+## Project Phases
 
-* Proceed with the project within the [jupyter notebook](project-template.ipynb).
-* Visit the [Kaggle Bike Sharing Demand Competition](https://www.kaggle.com/c/bike-sharing-demand) page. There you will see the overall details about the competition including overview, data, code, discussion, leaderboard, and rules. You will primarily be focused on the data and ranking sections.
+### 1. Initial Training
 
-### Dependencies
+Initially, models were trained using the provided data without any modifications. It was crucial to ensure that all predicted values were non-negative, as negative predictions for bike-sharing demand are unrealistic.
 
-```
-Python 3.7
-MXNet 1.8
-Pandas >= 1.2.4
-AutoGluon 0.2.0 
-```
-### Key Components
-AutoGluon: Utilized for training several iterations of models.
-Tabular Prediction: Technique used for fitting data from CSV files.
-Kaggle Competition Submission: Multiple entries submitted to the Bike Sharing Demand competition.
-Report: A detailed report of findings compiled to share publicly on Kaggle or personal platforms.
+**Top-performing model**: WeightedEnsemble_L3, which combines predictions from multiple base models to capture diverse aspects of the data.
 
-### Acknowledgments
-This project was completed as part of the Udacity Nanodegree course (Machine Learning Fundamentals), utilizing the provided resources and guidelines.
+### 2. Exploratory Data Analysis and Feature Creation
 
+During EDA, histograms were plotted to understand the distribution of features. This analysis led to the creation of additional datetime-based features such as hour, day, week, month, and year, which helped capture temporal patterns in the data.
 
+**Impact of additional features**: The model's performance improved significantly, with the Kaggle score decreasing from 1.80344 to 0.61088, indicating a better fit.
+
+### 3. Hyperparameter Tuning
+
+Further tuning of hyperparameters led to a slight improvement in model performance, with the score decreasing to 0.50732.
+
+### 4. Final Results
+
+The iterative process of model training, feature engineering, and hyperparameter tuning culminated in a model capable of making accurate predictions. The final model was submitted to the Kaggle competition, achieving a competitive rank.
+
+| Model           | HPO1        | HPO2        | HPO3        | Kaggle Score |
+|-----------------|-------------|-------------|-------------|--------------|
+| Initial         | -53.137922  | -53.444992  | -55.076511  | 1.80344      |
+| After Features  | -30.440743  | -30.711589  | -31.140419  | 0.61088      |
+| After HPO       | -33.975272  | -33.975272  | -34.941020  | 0.50732      |
+
+## Summary
+
+This project highlights the importance of iterative model development, including thoughtful feature engineering and careful hyperparameter tuning, in achieving accurate predictions. The improvements made at each stage of the project demonstrate the potential of AutoGluon for handling complex machine learning tasks with minimal manual intervention.
+
+## Future Work
+
+Given more time, I would explore training the dataset on the top 5 performing algorithms individually, experimenting with different hyperparameters to further refine the model and achieve even better predictions.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
